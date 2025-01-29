@@ -25,16 +25,27 @@ import {
 
       this.server.emit('message', payload); // Broadcast to all clients
     }
-  
-    @SubscribeMessage('offer')
-    handleOffer(client: Socket, payload: any) {
-      this.server.emit('offer', payload);
+   
+    @SubscribeMessage('call-user')
+    handleIncomingCall(client: Socket, payload: { to: string; offer: any }) {
+      this.server.emit('incoming-call', payload);
     }
-  
+
+      
     @SubscribeMessage('answer')
     handleAnswer(client: Socket, payload: any) {
       this.server.emit('answer', payload);
     }
+
+    @SubscribeMessage('accept-call')
+    handleAcceptCall(client: Socket, payload: any) {
+      this.server.emit('offer', payload);
+    }
+  
+    // @SubscribeMessage('answer')
+    // handleAnswer(client: Socket, payload: any) {
+    //   this.server.emit('answer', payload);
+    // }
   
     @SubscribeMessage('ice-candidate')
     handleIceCandidate(client: Socket, payload: any) {
