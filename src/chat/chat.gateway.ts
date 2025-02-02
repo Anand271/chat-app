@@ -34,7 +34,8 @@ import {
     @SubscribeMessage('call-user')
     handleCallUser(client: Socket, payload: { to: string, offer: RTCSessionDescriptionInit }) {
       // Handle initiating a call to another user
-      this.server.to(payload.to).emit('incoming-call', { from: client.id, offer: payload.offer });
+      this.server.emit('incoming-call', payload);
+      // this.server.to(payload.to).emit('incoming-call', { from: client.id, offer: payload.offer });
     }
       
     // @SubscribeMessage('answer')
